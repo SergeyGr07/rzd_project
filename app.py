@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from flask_cors import CORS
 
@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return 'Go to <a href="http://127.0.0.1:5000/tracker/">Tracker</a>'
+    return render_template("loging_page.html")
 
 
 if __name__ == '__main__':
