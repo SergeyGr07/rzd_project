@@ -33,7 +33,7 @@ body {
     height: 70px;
     border-radius: 50%;
     border: 8px solid #f7f7f7;
-    border-color: #3498db transparent #3498db; transparent;
+    border-color: #3498db transparent #3498db transparent;
     animation: loader 1.2s linear infinite;
   }
 
@@ -67,3 +67,11 @@ body {
        opacity: 0.5;
      }
    }
+
+   .loader {
+    position: fixed; /* Позиционируем абсолютно относительно всего документа */
+    top: 50%; /* Позиционируем по вертикали в середине */
+    left: 50%; /* Позиционируем по горизонтали в середине */
+    transform: translate(-50%, -50%); /* Центрируем модальное окно */
+    z-index: 9999; /* Устанавливаем высокий z-index, чтобы окно было поверх остальных элементов */
+}
