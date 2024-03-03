@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_file
 from flask_cors import CORS
 # from flask_login import login_required
 # from user import login_manager
 from flask_sqlalchemy import SQLAlchemy
+import openpyxl
 
 
 app = Flask(__name__)
@@ -55,6 +56,21 @@ def clear_data():
 def watcher():
     data = Data.query.all()
     return render_template('main.html', data=data)
+
+
+@app.route('/excel_export')
+def excel_export():
+    try:
+        data = Data.query.all()
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(['ID', 'Field 1', 'Field 2', 'Field 3', 'Field 4', 'Field 5', 'Field 6', 'Field 7', 'Field 8'])
+        for row in data:
+            ws.append([row.id, row.field1, row.field2, row.field3, row.field4, row.field5, row.field6, row.field7, row.field8])
+        wb.save('data.xlsx')
+        return send_file('data.xlsx', as_attachment=True)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':
