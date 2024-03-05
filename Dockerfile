@@ -1,15 +1,14 @@
 # Используем базовый образ Python
-FROM python:3.10.12
+FROM ubuntu:latest
+RUN apt-get update -qy
+RUN apt-get install -qy python3 python3-pip python3-dev
+
+COPY . /app
 
 # Установка рабочей директории внутри контейнера
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Копируем файлы зависимостей проекта и устанавливаем их
-COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем остальные файлы проекта внутрь контейнера
-COPY . .
-
 # Запускаем Flask-приложение
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
